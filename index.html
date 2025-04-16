@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precious Gems - Luxury Gemstones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* CSS Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        html {
+             scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1a1a1a;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+        }
+         header.scrolled {
+            background: rgba(26,26,26,0.95); /* Slightly transparent when scrolled */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo h1 {
+            color: #fff;
+            font-size: 1.8rem;
+             text-decoration: none; /* Remove underline if logo is a link */
+        }
+         .logo a { /* If logo is wrapped in a link */
+             text-decoration: none;
+         }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+             padding: 0.5rem 0; /* Add some vertical padding */
+             position: relative; /* For underline effect */
+        }
+         /* Underline effect on hover */
+         .nav-links a::after {
+             content: '';
+             position: absolute;
+             width: 0;
+             height: 2px;
+             bottom: 0;
+             left: 0;
+             background-color: #c5a47e;
+             transition: width 0.3s ease;
+         }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: #c5a47e; /* Keep color change */
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('gem-bg.jpg') center/cover no-repeat fixed; /* Fixed background for parallax effect */
+                        /* Ensure you have gem-bg.jpg or replace */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 2rem; /* Add padding */
+            /* No margin-top needed as body starts below fixed header */
+        }
+
+        .hero-content h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add text shadow */
+        }
+
+        .hero-content p {
+            font-size: 1.4rem; /* Adjusted size */
+            margin-bottom: 2.5rem; /* More space */
+             max-width: 700px; /* Limit width */
+             margin-left: auto;
+             margin-right: auto;
+              text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .cta-btn {
+            padding: 1rem 2.5rem; /* Larger button */
+            background-color: #c5a47e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none; /* Ensure no default border */
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background-color: #ad8b65;
+            transform: translateY(-3px); /* Lift effect */
+        }
+
+        /* Generic Section Styling */
+        .section {
+             padding: 5rem 2rem;
+             max-width: 1200px;
+             margin: 0 auto;
+         }
+         .section-title {
+             text-align: center;
+             font-size: 2.5rem;
+             margin-bottom: 3rem;
+             position: relative;
+             padding-bottom: 1rem;
+         }
+         /* Underline for section titles */
+         .section-title::after {
+             content: '';
+             position: absolute;
+             width: 80px;
+             height: 4px;
+             background-color: #c5a47e;
+             bottom: 0;
+             left: 50%;
+             transform: translateX(-50%);
+         }
+        /* Alternate Background for Sections */
+         .bg-light {
+             background-color: #f9f9f9;
+             /* Extend background slightly */
+             padding-left: calc( (100vw - 1200px) / 2 );
+             padding-right: calc( (100vw - 1200px) / 2 );
+             margin-left: calc( -1 * (100vw - 100%) / 2 );
+             margin-right: calc( -1 * (100vw - 100%) / 2 );
+              box-sizing: content-box; /* Important for calc */
+         }
+         /* Adjust padding for full-width background sections */
+         @media (max-width: 1200px) {
+             .bg-light {
+                 padding-left: 2rem;
+                 padding-right: 2rem;
+                 margin-left: -2rem;
+                 margin-right: -2rem;
+             }
+         }
+
+
+        /* Featured Gems Section */
+         #gems { /* Use ID for specific section */
+             /* Styles inherited from .section */
+         }
+
+        .gems-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gem-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack elements vertically */
+        }
+
+        .gem-card:hover {
+            transform: translateY(-5px);
+             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .gem-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+         .gem-card-content {
+             padding: 1.5rem;
+             flex-grow: 1; /* Allow content to fill space */
+             display: flex;
+             flex-direction: column;
+         }
+
+        .gem-card h3 {
+            color: #1a1a1a;
+             margin-bottom: 0.5rem; /* Space below title */
+             font-size: 1.4rem;
+        }
+
+        .gem-card p {
+            color: #666;
+             font-size: 0.95rem;
+             margin-bottom: 1rem; /* Space below description */
+             flex-grow: 1; /* Push price/button down */
+        }
+
+        .price {
+            display: block;
+            color: #c5a47e;
+            font-weight: bold;
+            font-size: 1.2rem;
+             margin-bottom: 1rem; /* Space above button */
+             text-align: right;
+        }
+
+        .view-options-btn { /* Renamed from buy-btn for clarity */
+            display: block;
+            width: 100%;
+            padding: 0.8rem; /* Slightly smaller padding */
+            background-color: #1a1a1a;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+             border-radius: 5px; /* Rounded corners */
+             margin-top: auto; /* Pushes button to bottom */
+             text-decoration: none; /* Ensure it looks like a button if it's a link */
+             font-size: 0.9rem;
+        }
+
+        .view-options-btn:hover {
+            background-color: #c5a47e;
+        }
+
+        /* Contact Section */
+        #contact {
+            /* Styles inherited from .section */
+        }
+         .contact-container {
+             display: flex;
+             flex-wrap: wrap;
+             gap: 3rem;
+             align-items: flex-start; /* Align items top */
+         }
+         .contact-info, .contact-form-container {
+             flex: 1 1 400px; /* Allow flex grow/shrink, base width */
+         }
+         .contact-info h3, .contact-form-container h3 {
+             font-size: 1.8rem;
+             margin-bottom: 1.5rem;
+             color: #1a1a1a;
+         }
+          .contact-info p {
+             margin-bottom: 1rem;
+             color: #555;
+             font-size: 1.05rem;
+             display: flex; /* Align icon and text */
+             align-items: center;
+             gap: 0.8rem; /* Space between icon and text */
+         }
+         .contact-info i {
+             color: #c5a47e;
+             font-size: 1.2rem;
+             width: 20px; /* Fixed width for alignment */
+             text-align: center;
+         }
+          .contact-info a {
+             color: #c5a47e;
+             text-decoration: none;
+             transition: color 0.3s ease;
+         }
+         .contact-info a:hover {
+             color: #1a1a1a;
+         }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.9rem; /* Increased padding */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+             font-family: inherit;
+        }
+         .contact-form input:focus,
+        .contact-form textarea:focus {
+             outline: none;
+             border-color: #c5a47e;
+             box-shadow: 0 0 5px rgba(197, 164, 126, 0.3);
+         }
+
+        .contact-form textarea {
+             resize: vertical; /* Allow vertical resize */
+             min-height: 120px;
+         }
+
+        .contact-form button {
+            background: #c5a47e;
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+             font-weight: bold;
+        }
+         .contact-form button:hover {
+             background-color: #ad8b65;
+         }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 3rem 0 1rem;
+             margin-top: 5rem; /* Space above footer */
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #c5a47e;
+             font-size: 1.2rem;
+        }
+         .footer-section p, .footer-section a, .footer-section li {
+             color: #ccc;
+             text-decoration: none;
+             font-size: 0.95rem;
+             line-height: 1.8;
+         }
+          .footer-section ul {
+             list-style: none;
+             padding: 0;
+         }
+         .footer-section a:hover {
+             color: #fff;
+             text-decoration: underline;
+         }
+
+        .social-icons {
+            display: flex; /* Align icons */
+            gap: 1rem; /* Space between icons */
+            margin-top: 1rem; /* Space above icons */
+        }
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+             display: inline-block; /* Needed for transform */
+        }
+
+        .social-icons a:hover {
+            color: #c5a47e;
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+         .footer-bottom a {
+            color: #aaa;
+            text-decoration: none;
+         }
+         .footer-bottom a:hover {
+             color: #fff;
+             text-decoration: underline;
+         }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none; /* Hidden by default */
+             padding: 0.5rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block; /* Show hamburger */
+            }
+
+            nav {
+                padding: 0 1rem; /* Reduce nav padding */
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%; /* Position below header */
+                left: 0;
+                right: 0;
+                background: #1a1a1a;
+                flex-direction: column;
+                display: none; /* Hidden until active */
+                padding: 1rem 0;
+                border-top: 1px solid #333; /* Separator */
+                 box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                display: flex; /* Show when active */
+            }
+
+            .nav-links li {
+                margin-left: 0; /* Remove horizontal margin */
+                text-align: center; /* Center text */
+            }
+            .nav-links a {
+                 padding: 1rem; /* Make links easier to tap */
+                 display: block; /* Take full width */
+            }
+             .nav-links a::after {
+                 display: none; /* Hide underline effect on mobile menu */
+             }
+            .nav-links a:hover {
+                 background-color: #333; /* Highlight on hover/tap */
+                  color: #c5a47e; /* Keep hover color */
+            }
+
+             .hero-content h2 {
+                 font-size: 2.5rem;
+             }
+             .hero-content p {
+                 font-size: 1.2rem;
+             }
+             .cta-btn {
+                 padding: 0.8rem 2rem;
+                 font-size: 1rem;
+             }
+
+             .section {
+                 padding: 3rem 1rem; /* Reduce section padding */
+             }
+             .section-title {
+                 font-size: 2rem;
+             }
+
+             .gems-container {
+                 grid-template-columns: 1fr; /* Stack cards */
+                 gap: 1.5rem;
+             }
+
+             .contact-container {
+                 flex-direction: column; /* Stack contact info and form */
+                 gap: 2rem;
+             }
+
+             footer {
+                padding-top: 2rem;
+             }
+             .footer-content {
+                 padding: 0 1rem;
+                 gap: 1.5rem;
+             }
+             .footer-section {
+                 text-align: center; /* Center footer sections */
+             }
+             .social-icons {
+                 justify-content: center; /* Center icons */
+             }
+        }
+
+        /* Modal Styles (kept for potential future use, similar to collection.html) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1001;
+            overflow-y: auto;
+            padding: 2rem; /* Add padding for modal */
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            max-width: 650px; /* Adjusted width */
+            margin: 5vh auto;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: auto; /* Adjust height automatically */
+            max-height: 400px; /* Limit max height */
+            object-fit: contain; /* Show full image */
+            border-radius: 5px;
+            margin-bottom: 1.5rem; /* Space below image */
+            border: 1px solid #eee;
+        }
+         .modal-content h2 {
+             margin-bottom: 0.5rem;
+             font-size: 1.8rem;
+         }
+         .modal-content p {
+             margin-bottom: 1rem;
+             color: #555;
+         }
+         .modal-price { /* Style specifically for modal price */
+             font-size: 1.4rem;
+             font-weight: bold;
+             color: #c5a47e;
+             margin-bottom: 1.5rem;
+             display: block;
+         }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+             line-height: 1;
+             transition: color 0.3s ease;
+        }
+        .close:hover {
+             color: #333;
+        }
+
+        .modal-contact-btn { /* Renamed for clarity */
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 5px;
+             font-size: 1.1rem;
+             font-weight: bold;
+             transition: background-color 0.3s ease;
+        }
+         .modal-contact-btn:hover {
+            background-color: #c5a47e;
+         }
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html"><h1>Precious Gems</h1></a> <!-- Wrap logo in link -->
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>       <!-- Corrected Link -->
+                <li><a href="collection.html">Gems</a></li>   <!-- Corrected Link -->
+                <li><a href="aboutus.html">About</a></li>     <!-- Corrected Link -->
+                <li><a href="contact.html">Contact</a></li>   <!-- Corrected Link -->
+            </ul>
+            <div class="menu-toggle">
+                 <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home"> <!-- Keep ID if needed for internal links -->
+        <div class="hero-content">
+            <h2>Discover Nature's Finest Treasures</h2>
+            <p>Explore our curated collection of exquisite, ethically sourced gemstones from around the globe.</p>
+            <a href="collection.html" class="cta-btn">Explore Collection</a> <!-- Link to collection page -->
+        </div>
+    </section>
+
+    <!-- Featured Gems Section -->
+    <section class="section" id="gems">
+        <h2 class="section-title">Featured Gems</h2>
+        <div class="gems-container">
+            <!-- Card 1: Diamonds -->
+            <div class="gem-card">
+                <img src="diamond.jpg" alt="Sparkling Diamond"> <!-- Use descriptive alt text -->
+                <div class="gem-card-content">
+                    <h3>Exquisite Diamonds</h3>
+                    <p>Discover diamonds of exceptional brilliance, available in various cuts and clarities to match your desires.</p>
+                    <span class="price">$2,500 - $50,000+</span>
+                    <a href="collection.html?type=diamond" class="view-options-btn">View Diamonds</a> <!-- Link to filtered collection -->
+                </div>
+            </div>
+
+            <!-- Card 2: Rubies -->
+            <div class="gem-card">
+                <img src="ruby.jpg" alt="Deep Red Ruby">
+                 <div class="gem-card-content">
+                    <h3>Vivid Rubies</h3>
+                    <p>Explore our collection of rubies, known for their passionate red hues and exceptional quality, including rare origins.</p>
+                    <span class="price">$1,800 - $40,000+</span>
+                    <a href="collection.html?type=ruby" class="view-options-btn">View Rubies</a>
+                </div>
+            </div>
+
+            <!-- Card 3: Emeralds -->
+            <div class="gem-card">
+                <img src="emerald.jpg" alt="Lush Green Emerald">
+                 <div class="gem-card-content">
+                    <h3>Lush Emeralds</h3>
+                    <p>Find captivating emeralds displaying rich green tones and natural beauty, sourced responsibly from premier locations.</p>
+                    <span class="price">$1,200 - $35,000+</span>
+                    <a href="collection.html?type=emerald" class="view-options-btn">View Emeralds</a>
+                </div>
+            </div>
+             <!-- Card 4: Sapphires (Example) -->
+            <div class="gem-card">
+                <img src="/api/placeholder/300/250?text=Sapphire" alt="Blue Sapphire"> <!-- Placeholder or actual image -->
+                 <div class="gem-card-content">
+                    <h3>Stunning Sapphires</h3>
+                    <p>From classic blues to fancy colors, discover the allure and durability of our diverse sapphire collection.</p>
+                    <span class="price">$1,000 - $45,000+</span>
+                    <a href="collection.html?type=sapphire" class="view-options-btn">View Sapphires</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section bg-light" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Gemstone Lane, Colombo, Sri Lanka</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:dhsdesilva@gmail.com">dhsdesilva@gmail.com</a></p>
+                <p><i class="fas fa-phone-alt"></i> <a href="tel:+94772658261">+94 77 265 8261</a></p>
+                 <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/94772658261" target="_blank">Chat on WhatsApp</a></p>
+                 <h3>Office Hours</h3>
+                 <p><i class="fas fa-clock"></i> Monday - Friday: 9:00 AM - 6:00 PM</p>
+                 <p><i class="fas fa-clock"></i> Saturday: 10:00 AM - 4:00 PM</p>
+                 <p><i class="fas fa-times-circle"></i> Sunday: Closed</p>
+             </div>
+             <div class="contact-form-container">
+                 <h3>Send Us a Message</h3>
+                 <form class="contact-form" action="#" method="POST"> <!-- Add form action/method later -->
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" name="phone" placeholder="Your Phone (Optional)">
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Precious Gems</h4>
+                 <p>Discovering nature's artistry. We specialize in ethically sourced, high-quality gemstones for collectors and jewelry lovers worldwide.</p>
+            </div>
+             <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collection.html">Gem Collection</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                     <!-- Add more relevant links -->
+                     <!-- <li><a href="#">FAQ</a></li> -->
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>Email: <a href="mailto:dhsdesilva@gmail.com">dhsdesilva@gmail.com</a></p>
+                <p>Phone: <a href="tel:+94772658261">+94 77 265 8261</a></p>
+                 <div class="social-icons">
+                    <a href="https://web.facebook.com/hasinthas/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/h_a_s_i._s/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/hasinth_s" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://wa.me/94772658261" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Precious Gems. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Modal Structure (for potential future use like quick view) -->
+     <div class="modal" id="gemModal">
+         <div class="modal-content">
+             <span class="close" onclick="closeModal()">×</span>
+             <img src="" alt="Gem Image" class="modal-image" id="modalImage">
+             <h2 id="modalTitle">Gem Title</h2>
+             <p id="modalDescription">Gem description...</p>
+             <p class="modal-price" id="modalPriceRange">$0 - $0</p>
+             <button class="modal-contact-btn" onclick="window.location.href='collection.html'">View Full Collection</button>
+         </div>
+     </div>
+
+    <!-- JavaScript -->
+    <script>
+        // --- Mobile Menu Toggle ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+             if (menuToggle && navLinks) {
+                 menuToggle.addEventListener('click', function() {
+                     navLinks.classList.toggle('active');
+                     // Optional: Toggle body class to prevent scrolling when menu is open
+                     document.body.classList.toggle('no-scroll', navLinks.classList.contains('active'));
+                 });
+
+                 // Close menu if a link is clicked
+                 navLinks.querySelectorAll('a').forEach(link => {
+                     link.addEventListener('click', () => {
+                         if (navLinks.classList.contains('active')) {
+                             navLinks.classList.remove('active');
+                             document.body.classList.remove('no-scroll');
+                         }
+                     });
+                 });
+             } else {
+                 console.error("Menu toggle or nav links element not found.");
+             }
+        });
+
+        // --- Smooth Scroll (Optional - already handled by CSS html { scroll-behavior: smooth; }) ---
+        // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        //     anchor.addEventListener('click', function(e) {
+        //         e.preventDefault();
+        //         const targetId = this.getAttribute('href');
+        //         const targetElement = document.querySelector(targetId);
+        //         if(targetElement) {
+        //              // Calculate offset for fixed header
+        //              const headerOffset = document.querySelector('header').offsetHeight || 80; // Get header height or fallback
+        //              const elementPosition = targetElement.getBoundingClientRect().top;
+        //              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        //              window.scrollTo({
+        //                  top: offsetPosition,
+        //                  behavior: 'smooth'
+        //              });
+        //         }
+        //          // Close mobile menu if open after clicking anchor link
+        //          const navLinks = document.querySelector('.nav-links');
+        //          if (navLinks && navLinks.classList.contains('active')) {
+        //              navLinks.classList.remove('active');
+        //              document.body.classList.remove('no-scroll');
+        //          }
+        //     });
+        // });
+
+        // --- Modal System (Basic Example for Featured Gems) ---
+        const modal = document.getElementById('gemModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalPriceRange = document.getElementById('modalPriceRange');
+
+         function openModal(title, description, priceRange, imageSrc) {
+            if (!modal) return; // Exit if modal doesn't exist
+
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            modalPriceRange.textContent = priceRange;
+            modalImage.src = imageSrc;
+            modalImage.alt = title; // Set alt text
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+             if (!modal) return;
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore background scrolling
+        }
+
+        // Example: Add event listeners to buttons IF you want modal on featured gems
+        // document.querySelectorAll('.view-options-btn').forEach(button => {
+        //     button.addEventListener('click', function(e) {
+        //         e.preventDefault(); // Prevent link navigation if modal is used
+        //         const card = this.closest('.gem-card');
+        //         const title = card.querySelector('h3').textContent;
+        //         const description = card.querySelector('p').textContent;
+        //         const price = card.querySelector('.price').textContent;
+        //         const imageSrc = card.querySelector('img').src;
+        //         openModal(title, description, price, imageSrc);
+        //     });
+        // });
+
+        // Close modal if clicking outside the content area
+        window.addEventListener('click', (event) => {
+             if (!modal) return;
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+         // Close modal with Escape key
+        window.addEventListener('keydown', (event) => {
+             if (!modal) return;
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                closeModal();
+            }
+        });
+
+
+        // --- Sticky Header on Scroll ---
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+             if (header) {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+             }
+        });
+
+      
